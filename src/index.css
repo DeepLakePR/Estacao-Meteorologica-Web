@@ -1,0 +1,28 @@
+*{
+  z-index: 3;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html, body{
+  background-image: linear-gradient(180deg, #f3f7fe 0%, #e5edfb 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+html, body, #root{
+  display: flex;
+  align-items: start;
+  width: 100%;
+  height: 100%;
+}
