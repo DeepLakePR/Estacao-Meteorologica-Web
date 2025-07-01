@@ -49,8 +49,89 @@
     text-align: center;
 }
 
-/* Monthly Weather Data */
+/*************************************/
+/** Monthly Weather Data **/
+/* Graph */
 #weatherGraph{
     height: 500px;
     width: 100%;
+}
+
+/* Average */
+.prevision-monthly-average{
+    padding: 20px 15px;
+    margin: 20px 0 10px 0;
+}
+
+.prevision-monthly-average-title{
+    font-size: 22px;
+    margin-bottom: 7px;
+    width: 100%;
+    text-align: center;
+}
+
+.prevision-monthly-average-text{
+    display: flex;
+    font-size: 16px;
+    text-align: left;
+    margin: 10px 0;
+    padding-bottom: 3px;
+    border-bottom: 1px solid black;
+}
+
+.prevision-monthly-average-text-bold{
+    margin: 0;
+    margin-left: 5px;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+
+    header{
+        justify-content: center !important;
+    }
+
+    .main-section{
+        height: 80vh;
+    }
+
+    .main-section .container{
+        padding: 0 !important;
+        font-size: 16px !important;
+    }
+
+    .weather{
+        padding: 1rem 0 !important;
+    }
+
+    .weather .container{
+        padding: 0.3rem !important;
+    }
+
+    #weatherGraph{
+        overflow-x: auto;
+        padding: 1rem 0;
+    }
+
+    #weatherGraph .recharts-responsive-container{
+        width: 1280px !important;
+    }
+
+    .prevision-monthly-average{
+        padding: 5px 5px;
+        margin: 10px 0;
+    }
+
+    .prevision-monthly-average-text{
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    footer{
+        font-size: 14px;
+        padding-bottom: 1rem;
+    }
+
 }
