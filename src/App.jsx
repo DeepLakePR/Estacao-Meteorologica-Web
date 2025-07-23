@@ -41,7 +41,7 @@ const DATE_FORMAT_CONFIG = {
   timeZone: "America/Sao_Paulo",
 };
 
-const data = [
+// const weatherData = [
   // {
   //   day: "2",
   //   "Mínima": 6,
@@ -78,20 +78,20 @@ const data = [
   //   "Máxima": 9,
   //   // amt: 2100,
   // },
-];
+// ];
 
-(() => {
-  for (let i = 1; i <= 31; i++) {
-    data.push({
-      day: i,
-      Máxima:
-        Math.floor(Math.random() * (Math.ceil(30) - Math.floor(15) + 1)) + 15,
-      Mínima:
-        Math.floor(Math.random() * (Math.ceil(15) - Math.floor(0) + 1)) + 0,
-      // amt: 2400,
-    });
-  }
-})();
+// (() => {
+//   for (let i = 1; i <= 31; i++) {
+//     weatherData.push({
+//       "day": i,
+//       "Máxima":
+//         Math.floor(Math.random() * (Math.ceil(30) - Math.floor(15) + 1)) + 15,
+//       "Mínima":
+//         Math.floor(Math.random() * (Math.ceil(15) - Math.floor(0) + 1)) + 0,
+//       // amt: 2400,
+//     });
+//   }
+// });
 
 ///////////////////
 // Utils Functions
@@ -113,6 +113,7 @@ function App() {
   const [noData, setNoData] = useState(false);
   const [isPreviousMonth, setIsPreviousMonth] = useState(false);
 
+  const [weatherGraphData, setWeatherGraphData] = useState([]);
   const [monthlyAverageData, setMonthlyAverageData] = useState({
     temperaturaSeco: "N/A",
     temperaturaUmido: "N/A",
@@ -194,14 +195,29 @@ function App() {
     const previsionAnotationsRef = collection(doc(previsionsCollection, querySnapshot.docs[0].id), "previsionAnotations");
     const previsionAnotations = await getDocs(previsionAnotationsRef);
 
+    const monthlyWeatherGraph = [];
+
     previsionAnotations.forEach((anotationDoc) => {
+
+      const anotationData = anotationDoc.data();
 
       // Set Average Variable
       Object.keys(sumAverage).forEach((value) => {
         sumAverage[value] += cleanAndConvertToNumber(
-          anotationDoc.data()[value]
+          anotationData[value]
         );
       });
+
+      const anotationDay = anotationData.anotationCreatedAt.toDate().getDate();
+      const anotationMaxTemp = anotationData.temperaturaMax;
+      const anotationMinTemp = anotationData.temperaturaMin;
+
+      if(!monthlyWeatherGraph[anotationDay]){
+        monthlyWeatherGraph[anotationDay] = {max: [], min: []};
+      }
+
+      monthlyWeatherGraph[anotationDay].max.push(cleanAndConvertToNumber(anotationMaxTemp));
+      monthlyWeatherGraph[anotationDay].min.push(cleanAndConvertToNumber(anotationMinTemp));
 
     });
 
@@ -220,6 +236,22 @@ function App() {
         [keyValue[0]]: sumResult,
       }));
     });
+
+    // Set Weather Graph Data
+    setWeatherGraphData(
+      Object.entries(monthlyWeatherGraph).map(([day, temps]) => {
+
+        const dayTempMax = Math.max(...temps.max);
+        const dayTempMin = Math.min(...temps.min);
+
+        return {
+          "day": Number(day),
+          "Máxima": dayTempMax,
+          "Mínima": dayTempMin
+        }
+      })
+    )
+
   }
 
   useEffect(() => {
@@ -345,7 +377,7 @@ function App() {
                     <LineChart
                       width={500}
                       height={300}
-                      data={data}
+                      data={weatherGraphData}
                       margin={{
                         top: 5,
                         right: 30,
