@@ -143,3 +143,12 @@
     }
 
 }
+
+@media screen and (max-width: 350px){
+    
+    .main-section{
+        height: 81vh;
+    }
+
+}
+
