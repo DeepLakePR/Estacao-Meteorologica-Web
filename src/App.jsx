@@ -41,58 +41,6 @@ const DATE_FORMAT_CONFIG = {
   timeZone: "America/Sao_Paulo",
 };
 
-// const weatherData = [
-  // {
-  //   day: "2",
-  //   "Mínima": 6,
-  //   "Máxima": 13,
-  //   // amt: 2210,
-  // },
-  // {
-  //   day: "3",
-  //   "Mínima": 14,
-  //   "Máxima": 21,
-  //   // amt: 2290,
-  // },
-  // {
-  //   day: "4",
-  //   "Mínima": 11,
-  //   "Máxima": 19,
-  //   // amt: 2000,
-  // },
-  // {
-  //   day: "5",
-  //   "Mínima": 8,
-  //   "Máxima": 17,
-  //   // amt: 2181,
-  // },
-  // {
-  //   day: "6",
-  //   "Mínima": 5,
-  //   "Máxima": 13,
-  //   // amt: 2500,
-  // },
-  // {
-  //   day: "7",
-  //   "Mínima": 1,
-  //   "Máxima": 9,
-  //   // amt: 2100,
-  // },
-// ];
-
-// (() => {
-//   for (let i = 1; i <= 31; i++) {
-//     weatherData.push({
-//       "day": i,
-//       "Máxima":
-//         Math.floor(Math.random() * (Math.ceil(30) - Math.floor(15) + 1)) + 15,
-//       "Mínima":
-//         Math.floor(Math.random() * (Math.ceil(15) - Math.floor(0) + 1)) + 0,
-//       // amt: 2400,
-//     });
-//   }
-// });
-
 ///////////////////
 // Utils Functions
 function cleanAndConvertToNumber(value) {
@@ -500,7 +448,7 @@ function App() {
           </p>
 
           <p className="text-body-secondary">
-            © Site desenvolvido por{" "}
+            © Site criado e desenvolvido por{" "}
             <a
               href="https://guifm.dev/"
               className="fw-bold text-dark"
