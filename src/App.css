@@ -1,7 +1,11 @@
+header{
+    height: 100px;
+}
+
 /* Main Section */
 .main-section{
     width: 100%;
-    height: 90vh;
+    height: calc(100vh - 100px);
 }
 
 .main-section .container{
@@ -93,13 +97,10 @@
         justify-content: center !important;
     }
 
-    .main-section{
-        height: 90vh;
-    }
-
     .main-section .container{
         padding: 0 !important;
         font-size: 16px !important;
+        padding-top: 5rem !important;
     }
 
     .weather{
@@ -135,20 +136,3 @@
     }
 
 }
-
-@media screen and (max-width: 480px){
-    
-    .main-section{
-        height: 84vh;
-    }
-
-}
-
-@media screen and (max-width: 380px){
-    
-    .main-section{
-        height: 81vh;
-    }
-
-}
-
