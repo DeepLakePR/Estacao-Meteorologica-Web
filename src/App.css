@@ -136,3 +136,11 @@ header{
     }
 
 }
+
+@media screen and (max-width: 480px) {
+
+    .main-section{
+        height: calc(100vh - 175px);
+    }
+
+}
