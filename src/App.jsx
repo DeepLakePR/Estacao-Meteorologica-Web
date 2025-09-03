@@ -117,7 +117,7 @@ function App() {
         limit(1)
       )
     );
-    
+
     if (querySnapshot.empty) {
       setNoData(true);
       return;
@@ -140,33 +140,36 @@ function App() {
       velocidadeKm: 0,
     };
 
-    const previsionAnotationsRef = collection(doc(previsionsCollection, querySnapshot.docs[0].id), "previsionAnotations");
+    const previsionAnotationsRef = collection(
+      doc(previsionsCollection, querySnapshot.docs[0].id),
+      "previsionAnotations"
+    );
     const previsionAnotations = await getDocs(previsionAnotationsRef);
 
     const monthlyWeatherGraph = [];
 
     previsionAnotations.forEach((anotationDoc) => {
-
       const anotationData = anotationDoc.data();
 
       // Set Average Variable
       Object.keys(sumAverage).forEach((value) => {
-        sumAverage[value] += cleanAndConvertToNumber(
-          anotationData[value]
-        );
+        sumAverage[value] += cleanAndConvertToNumber(anotationData[value]);
       });
 
       const anotationDay = anotationData.anotationCreatedAt.toDate().getDate();
       const anotationMaxTemp = anotationData.temperaturaMax;
       const anotationMinTemp = anotationData.temperaturaMin;
 
-      if(!monthlyWeatherGraph[anotationDay]){
-        monthlyWeatherGraph[anotationDay] = {max: [], min: []};
+      if (!monthlyWeatherGraph[anotationDay]) {
+        monthlyWeatherGraph[anotationDay] = { max: [], min: [] };
       }
 
-      monthlyWeatherGraph[anotationDay].max.push(cleanAndConvertToNumber(anotationMaxTemp));
-      monthlyWeatherGraph[anotationDay].min.push(cleanAndConvertToNumber(anotationMinTemp));
-
+      monthlyWeatherGraph[anotationDay].max.push(
+        cleanAndConvertToNumber(anotationMaxTemp)
+      );
+      monthlyWeatherGraph[anotationDay].min.push(
+        cleanAndConvertToNumber(anotationMinTemp)
+      );
     });
 
     const anotationsLength = previsionAnotations.docs.length;
@@ -188,18 +191,16 @@ function App() {
     // Set Weather Graph Data
     setWeatherGraphData(
       Object.entries(monthlyWeatherGraph).map(([day, temps]) => {
-
         const dayTempMax = Math.max(...temps.max);
         const dayTempMin = Math.min(...temps.min);
 
         return {
-          "day": Number(day),
-          "Máxima": dayTempMax,
-          "Mínima": dayTempMin
-        }
+          day: Number(day),
+          Máxima: dayTempMax,
+          Mínima: dayTempMin,
+        };
       })
-    )
-
+    );
   }
 
   useEffect(() => {
@@ -224,24 +225,9 @@ function App() {
           flex-wrap
           align-items-center
           justify-content-center
-          justify-content-sm-between
           text-center"
         >
-          <a
-            href="/"
-            className="fs-3 fw-lighter text-decoration-none text-white mx-3"
-          >
-            Projeto <strong className="fw-bold">EMEDE</strong>
-          </a>
-
-          <a
-            href="https://api.whatsapp.com/send/?phone=%2B5541996954380&text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20Projeto%20EMEDE...&type=phone_number&app_absent=0"
-            className="fs-4 fw-lighter text-white"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Conheça Mais Sobre o Projeto
-          </a>
+          <p className="lead">Colégio Estadual Professor Júlio Szymanski</p>
         </header>
 
         {/* Banner */}
@@ -253,9 +239,7 @@ function App() {
           </div>
 
           <div className="container text-white text-center py-5">
-            <h1 className="display-3">Estação Meteorológica</h1>
-
-            <p className="lead">Colégio Estadual Professor Júlio Szymanski</p>
+            <img src="/public/logo.png" alt="Projeto EMEDE" />
           </div>
         </section>
 
@@ -266,8 +250,13 @@ function App() {
 
             <div
               id="announcements"
-              className="justify-content-center row gap-2"
+              className="justify-content-center text-center row gap-2"
             >
+              {announcements.length === 0 && (
+                <p className="text-secondary">
+                  Não encontramos nenhum comunicado postado recentemente.
+                </p>
+              )}
               {announcements.map((announcement) => {
                 const { author, message, date } = announcement.data();
 
@@ -339,7 +328,10 @@ function App() {
                         tickFormatter={(value) => value + " ºC"}
                         tickCount={4}
                       />
-                      <Tooltip labelFormatter={(value) => "Dia " + value} formatter={(value) => value + "ºC"} />
+                      <Tooltip
+                        labelFormatter={(value) => "Dia " + value}
+                        formatter={(value) => value + "ºC"}
+                      />
                       <Legend formatter={(value) => "Temperatura " + value} />
                       <Line
                         type="monotone"
@@ -436,6 +428,16 @@ function App() {
             )}
           </div>
         </section>
+
+        
+          <a
+            href="https://api.whatsapp.com/send/?phone=%2B5541997120030&text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20Projeto%20EMEDE...&type=phone_number&app_absent=0"
+            className="fs-4 text-white whatsapp-button"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fa-brands fa-square-whatsapp"></i>
+          </a>
 
         {/* Footer */}
         <footer
