@@ -239,7 +239,7 @@ function App() {
           </div>
 
           <div className="container text-white text-center py-5">
-            <img src="/public/logo.png" alt="Projeto EMEDE" />
+            <img src="/logo.png" alt="Projeto EMEDE" />
           </div>
         </section>
 
